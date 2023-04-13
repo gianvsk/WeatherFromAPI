@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './hooks/CustomHook';
+import { useWeather, } from './hooks/CustomHook';
+
 
 function App() {
+
+  const [city, setCity] = useState("Catania");
+  const [cities,setCities, ] = useWeather(city);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form>
+        <label>City</label>
+        <input type="text" onChange={(e) => setCity(e.target.value)}/>
+        <button style={{width:30, height:30}}></button>
+        {cities && <h2>{cities.weather[0].description} , {cities.weather[0].icon}, {cities.weather[0].id}</h2>}
+      </form>
     </div>
   );
 }
